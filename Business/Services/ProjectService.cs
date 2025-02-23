@@ -1,6 +1,7 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using System.Diagnostics;
 
 namespace Business.Services;
 
@@ -12,23 +13,88 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
 
     public async Task<bool> CreateProjectAsync(ProjectRegistrationForm form)
     {
-        if (!await _customerRepository.ExistsAsync(customer => customer.Id == form.CustomerId))
+        try
         {
+            if (!await _customerRepository.ExistsAsync(customer => customer.Id == form.CustomerId))
+            {
+                return false;
+            }
+            var projectEntity = ProjectFactory.Create(form);
+            if (projectEntity == null)
+            {
+                return false;
+            }
+            bool result = await _projectRepository.AddAsync(projectEntity);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
             return false;
         }
-        var projectEntity = ProjectFactory.Create(form);
-        if (projectEntity == null)
-        {
-            return false;
-        }
-        bool result = await _projectRepository.AddAsync(projectEntity);
-        return result;
     }
 
     public async Task<IEnumerable<Project?>> GetProjectsAsync()
     {
-        var entities = await _projectRepository.GetAllAsync();
-        var projects = entities.Select(ProjectFactory.Create);
-        return projects;
+        try
+        {
+            var entities = await _projectRepository.GetAllAsync();
+            var projects = entities.Select(ProjectFactory.Create);
+            return projects;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return new List<Project>();
+        }
+    }
+    public async Task<bool> UpdateProjectAsync(Project form)
+    {
+        try
+        {
+            if (!await _projectRepository.ExistsAsync(project => project.Id == form.Id))
+            {
+                return false;
+            }
+            var project = await _projectRepository.GetAsync(project => project.Id == form.Id);
+            if (project == null)
+            {
+                return false;
+            }
+
+            project.Description = form.Description;
+            project.ProjectName = form.ProjectName;
+
+            bool result = await _projectRepository.UpdateAsync(project);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
+    }
+    public async Task<bool> RemoveProjectAsync(int id)
+    {
+        try
+        {
+            if (!await _projectRepository.ExistsAsync(project => project.Id == id))
+            {
+                return false;
+            }
+            var project = await _projectRepository.GetAsync(project => project.Id == id);
+            if (project == null)
+            {
+                return false;
+            }
+
+            bool result = await _projectRepository.RemoveAsync(project);
+            return result;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine(ex);
+            return false;
+        }
     }
 }

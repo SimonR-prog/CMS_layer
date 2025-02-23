@@ -27,4 +27,22 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         var projects = await _projectService.GetProjectsAsync();
         return Ok(projects);
     }
+
+    [HttpPut]
+    public async Task<IActionResult> Update(Project form)
+    {
+        var result = await _projectService.UpdateProjectAsync(form);
+        return result ? Ok(result) : NotFound();
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var result = await _projectService.RemoveProjectAsync(id);
+        return result ? Ok(result) : NotFound();
+    }
+
+
+
+
 }
