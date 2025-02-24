@@ -35,14 +35,10 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         return result ? Ok(result) : NotFound();
     }
 
-    [HttpDelete]
+    [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _projectService.RemoveProjectAsync(id);
         return result ? Ok(result) : NotFound();
     }
-
-
-
-
 }
