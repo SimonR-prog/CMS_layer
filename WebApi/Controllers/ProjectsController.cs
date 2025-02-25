@@ -41,4 +41,11 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         var result = await _projectService.RemoveProjectAsync(id);
         return result ? Ok(result) : NotFound();
     }
+    
+    [HttpGet("{id}")]
+    public async Task<IActionResult> GetProject(int id)
+    {
+        var project = await _projectService.GetProjectAsync(id);
+        return Ok(project);
+    }
 }

@@ -37,7 +37,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     public async Task<IEnumerable<Project?>> GetProjectsAsync()
     {
         try
-        {
+        {   
             var entities = await _projectRepository.GetAllAsync();
             var projects = entities.Select(ProjectFactory.Create);
             return projects;
@@ -87,7 +87,6 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             {
                 return false;
             }
-
             bool result = await _projectRepository.RemoveAsync(project);
             return result;
         }
@@ -95,6 +94,24 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
         {
             Debug.WriteLine(ex);
             return false;
+        }
+    }
+    public async Task<Project?> GetProjectAsync(int id)
+    {
+        try
+        {
+            //Gets the projectentity from its id and uses factory to turn it into a project and returns it.
+            var projectEntity = await _projectRepository.GetAsync(project => project.Id == id);
+            if (projectEntity != null)
+            {
+                return ProjectFactory.Create(projectEntity);
+            }
+            return null;
+        }
+        catch (Exception ex) 
+        {
+            Debug.WriteLine(ex);
+            return null;
         }
     }
 }
