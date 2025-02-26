@@ -51,55 +51,105 @@ public class CustomerRepository_Tests
     [Fact]
     public async Task ExistsAsync_ShouldReturnTrue_IfCustomerExists()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
     [Fact]
     public async Task ExistsAsync_ShouldReturnFalse_IfCustomerDoesNotExist()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
 
     [Fact]
     public async Task GetAllAsync_ShouldReturnIEnumerable_IfDoesExists()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
     [Fact]
     public async Task GetAllAsync_ShouldReturnEmptyIEnumerable_IfNotExists()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
 
     [Fact]
     public async Task GetAsync_ShouldReturnEntity_IfExists()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
     [Fact]
     public async Task GetAsync_ShouldReturnNull_IfNotExist()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
 
     [Fact]
     public async Task RemoveAsync_ShouldReturnTrue_IfRemoved()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
     [Fact]
     public async Task RemoveAsync_ShouldReturnFalse_IfNotRemoved()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
 
     [Fact]
     public async Task UpdateAsync_ShouldReturnTrue_IfUpdated()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
     [Fact]
     public async Task UpdateAsync_ShouldReturnFalse_IfNotUpdated()
     {
+        //Arrange 
+
+        //Act
+
+        //Assert
 
     }
 }
