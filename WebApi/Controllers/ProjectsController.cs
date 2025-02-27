@@ -18,7 +18,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         if (!ModelState.IsValid && form.CustomerId < 1)
             return BadRequest();
         var result = await _projectService.CreateProjectAsync(form);
-        return result ? Created("", null) : Problem();
+        return result.Success ? Created("", null) : Problem();
     }
 
     [HttpGet]
@@ -32,14 +32,14 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     public async Task<IActionResult> Update(Project form)
     {
         var result = await _projectService.UpdateProjectAsync(form);
-        return result ? Ok(result) : NotFound();
+        return result.Success ? Ok(result) : NotFound();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _projectService.RemoveProjectAsync(id);
-        return result ? Ok(result) : NotFound();
+        return result.Success ? Ok(result) : NotFound();
     }
     
     [HttpGet("{id}")]

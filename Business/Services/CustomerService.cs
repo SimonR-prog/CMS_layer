@@ -2,6 +2,7 @@
 using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
+using Business.Models.ResultModels;
 
 namespace Business.Services;
 
@@ -9,11 +10,11 @@ public class CustomerService(ICustomerRepository customerRepository) : ICustomer
 {
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
-    public async Task<IEnumerable<Customer?>> GetCustomersAsync()
+    public async Task<IResult> GetCustomersAsync()
     {
         var entities = await _customerRepository.GetAllAsync();
         var customers = entities.Select(CustomerFactory.Create);
-        return customers;
+        return Result<IEnumerable<Customer?>>.Ok(customers);
     }
 
 }
