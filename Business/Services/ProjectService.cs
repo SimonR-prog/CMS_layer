@@ -11,17 +11,17 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
     //Takes in a projectregistration form and returns a bool.
-    public async Task<bool> CreateProjectAsync(ProjectRegistrationForm form)
+    public async Task<bool> CreateProjectAsync(ProjectRegistrationForm registrationForm)
     {
         try
         {   
             //If customer doesn't exist, return null.
-            if (!await _customerRepository.ExistsAsync(customer => customer.Id == form.CustomerId))
+            if (!await _customerRepository.ExistsAsync(customer => customer.Id == registrationForm.CustomerId))
             {
                 return false;
             }
             //Sends form to the factory and adds the resulting entity into var.
-            var projectEntity = ProjectFactory.Create(form);
+            var projectEntity = ProjectFactory.Create(registrationForm);
             //If entity null, return false.
             if (projectEntity == null)
             {
@@ -57,28 +57,17 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             return new List<Project>();
         }
     }
-    public async Task<bool> UpdateProjectAsync(Project form)
+    public async Task<bool> UpdateProjectAsync(ProjectUpdateForm updateForm)
     {
-
-        //Change all this - do mapping in factory?
-
         try
         {
-            if (!await _projectRepository.ExistsAsync(project => project.Id == form.Id))
+            var entity = ProjectFactory.Create(updateForm);
+            if ( entity == null)
             {
                 return false;
             }
-            var project = await _projectRepository.GetAsync(project => project.Id == form.Id);
-            if (project == null)
-            {
-                return false;
-            }
-
-            project.Description = form.Description;
-            project.ProjectName = form.ProjectName;
-
-            bool result = await _projectRepository.UpdateAsync(project);
-            return result;
+            var updatedEntity = await _projectRepository.UpdateAsync(entity);
+            return true;
         }
         catch (Exception ex)
         {
