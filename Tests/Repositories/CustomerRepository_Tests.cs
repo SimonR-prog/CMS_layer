@@ -26,7 +26,7 @@ public class CustomerRepository_Tests
     public async Task AddAsync_ShouldReturnTrue_IfValidCustomerEntity()
     {
         //Arrange
-        var entity = new CustomerEntity {  CustomerName = "Test", Email = "test@fuckElonMusk.com" };
+        var entity = new CustomerEntity {  CustomerName = "Test", Email = "test@cunt.com" };
 
         //Act
         bool result = await _customerRepository.AddAsync(entity);
