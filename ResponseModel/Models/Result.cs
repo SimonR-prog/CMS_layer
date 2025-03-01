@@ -1,6 +1,4 @@
 ﻿using Business.Interfaces;
-using Microsoft.EntityFrameworkCore.Storage.Json;
-using Microsoft.Identity.Client;
 namespace Business.Models.ResultModels;
 
 public abstract class Result : IResult
