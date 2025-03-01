@@ -12,10 +12,10 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     private readonly IProjectService _projectService = projectService;
 
     [HttpPost]
-    public async Task<IActionResult> Create(ProjectRegistrationForm form)
+    public async Task<IActionResult> Create(ProjectRegistrationForm registrationForm)
     {
         //Kollar om valid och om inte eller mindre än 1 så skickar tillbaka badrequest (400).
-        if (!ModelState.IsValid && form.CustomerId < 1)
+        if (!ModelState.IsValid && registrationForm.CustomerId < 1)
             return BadRequest();
         var result = await _projectService.CreateProjectAsync(form);
         return result.Success ? Created("", null) : Problem();
@@ -29,7 +29,7 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update(Project form)
+    public async Task<IActionResult> Update(ProjectUpdateForm updateForm)
     {
         var result = await _projectService.UpdateProjectAsync(form);
         return result.Success ? Ok(result) : NotFound();

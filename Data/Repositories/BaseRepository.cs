@@ -30,7 +30,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
             return false;
         }
     }
-    public virtual async Task<bool> UpdateAsync(TEntity entity)
+    public virtual async Task<TEntity> UpdateAsync(TEntity entity)
     {
         try
         {
@@ -41,12 +41,12 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
             _db.Update(entity);
             await _context.SaveChangesAsync();
 
-            return true;
+            return entity;
         }
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-            return false;
+            return entity;
         }
     }
     public virtual async Task<bool> RemoveAsync(TEntity entity)

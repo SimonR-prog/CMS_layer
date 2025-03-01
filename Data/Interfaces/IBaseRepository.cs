@@ -9,6 +9,6 @@ namespace Data.Interfaces
         Task<IEnumerable<TEntity>> GetAllAsync();
         Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> expression);
         Task<bool> RemoveAsync(TEntity entity);
-        Task<bool> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateAsync(TEntity entity);
     }
 }
