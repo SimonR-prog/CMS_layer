@@ -1,4 +1,5 @@
 ﻿using Business.Models;
+using ResponseModel.Interfaces;
 
 namespace Business.Interfaces
 {

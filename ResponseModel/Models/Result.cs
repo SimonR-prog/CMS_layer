@@ -1,5 +1,6 @@
-﻿using Business.Interfaces;
-namespace Business.Models.ResultModels;
+﻿using ResponseModel.Interfaces;
+namespace ResponseModel.Models;
+
 
 public abstract class Result : IResult
 {
@@ -32,7 +33,7 @@ public abstract class Result : IResult
 public class Result<T> : Result
 {
     public T? Content { get; private set; }
-    public static Result<T> Ok(T? content) 
+    public static Result<T> Ok(T? content)
     {
         return new Result<T>
         {

@@ -27,7 +27,7 @@ public static class CustomerFactory
             Id = entity.Id,
             CustomerName = entity.CustomerName,
             Email = entity.Email,
-            Projects = []
+            Projects = new List<Project>()
         };
 
         //If the entity has projects attached to them, this takes the projects and adds them to a list and returns them together with the customer.

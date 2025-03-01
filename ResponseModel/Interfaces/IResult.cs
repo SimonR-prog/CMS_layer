@@ -1,4 +1,4 @@
-﻿namespace Business.Interfaces;
+﻿namespace ResponseModel.Interfaces;
 
 public interface IResult
 {

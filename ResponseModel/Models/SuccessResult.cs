@@ -1,4 +1,4 @@
-﻿namespace Business.Models.ResultModels;
+﻿namespace ResponseModel.Models;
 
 public class SuccessResult : Result
 {

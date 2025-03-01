@@ -1,7 +1,8 @@
 ﻿using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
-using Business.Models.ResultModels;
+using ResponseModel.Interfaces;
+using ResponseModel.Models;
 using System.Diagnostics;
 
 namespace Business.Services;
@@ -46,7 +47,6 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
 
     //Doesn't take in any parameters, returns an IEnum list of project objects. 
     public async Task<IResult> GetProjectsAsync()
-
     {
         try
         {   
@@ -59,18 +59,13 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
         catch (Exception ex)
         {
             Debug.WriteLine(ex);
-
-//Returns a new empty list if anything goes wrong in the try.
+            //Returns a new empty list if anything goes wrong in the try.
             return Result<List<Project?>>.Error("Problem getting the projects. Might not be any.");
         }
     }
     
     public async Task<IResult> UpdateProjectAsync(ProjectUpdateForm updateForm)
     {
-
-        //Maybe need to change this one. Create a new form with a new factory?
-
-
         try
         {
             var entity = ProjectFactory.Create(updateForm);
@@ -135,7 +130,3 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
         }
     }
 }
-
-
-
-//Break out the checks into a seperate valid checker method.
