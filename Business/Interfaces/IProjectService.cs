@@ -4,10 +4,10 @@ namespace Business.Interfaces
 {
     public interface IProjectService
     {
-        Task<bool> CreateProjectAsync(ProjectRegistrationForm form);
-        Task<Project?> GetProjectAsync(int id);
-        Task<IEnumerable<Project?>> GetProjectsAsync();
-        Task<bool> RemoveProjectAsync(int id);
-        Task<bool> UpdateProjectAsync(ProjectUpdateForm updateForm);
+        Task<IResult> CreateProjectAsync(ProjectRegistrationForm form);
+        Task<IResult> GetProjectAsync(int id);
+        Task<IResult> GetProjectsAsync();
+        Task<IResult> UpdateProjectAsync(Project form);
+        Task<IResult> RemoveProjectAsync(int id);
     }
 }

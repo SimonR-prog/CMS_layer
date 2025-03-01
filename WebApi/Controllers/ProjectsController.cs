@@ -17,8 +17,8 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
         //Kollar om valid och om inte eller mindre än 1 så skickar tillbaka badrequest (400).
         if (!ModelState.IsValid && registrationForm.CustomerId < 1)
             return BadRequest();
-        var result = await _projectService.CreateProjectAsync(registrationForm);
-        return result ? Created("", null) : Problem();
+        var result = await _projectService.CreateProjectAsync(form);
+        return result.Success ? Created("", null) : Problem();
     }
 
     [HttpGet]
@@ -31,15 +31,15 @@ public class ProjectsController(IProjectService projectService) : ControllerBase
     [HttpPut]
     public async Task<IActionResult> Update(ProjectUpdateForm updateForm)
     {
-        var result = await _projectService.UpdateProjectAsync(updateForm);
-        return result ? Ok(result) : NotFound();
+        var result = await _projectService.UpdateProjectAsync(form);
+        return result.Success ? Ok(result) : NotFound();
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(int id)
     {
         var result = await _projectService.RemoveProjectAsync(id);
-        return result ? Ok(result) : NotFound();
+        return result.Success ? Ok(result) : NotFound();
     }
     
     [HttpGet("{id}")]
