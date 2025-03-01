@@ -12,7 +12,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
     //Takes in a projectregistration form and returns a bool.
-    public async Task<IResult> CreateProjectAsync(ProjectRegistrationForm form)
+    public async Task<IResult> CreateProjectAsync(ProjectRegistrationForm registrationForm)
     {
         try
         {   
@@ -64,7 +64,8 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             return Result<List<Project?>>.Error("Problem getting the projects. Might not be any.");
         }
     }
-    public async Task<IResult> UpdateProjectAsync(Project form)
+    
+    public async Task<IResult> UpdateProjectAsync(ProjectUpdateForm updateForm)
     {
 
         //Maybe need to change this one. Create a new form with a new factory?
@@ -78,7 +79,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
                 return Result.AlreadyExists("Customer already exists.");
             }
             var updatedEntity = await _projectRepository.UpdateAsync(entity);
-            return true;
+            return Result.Ok();
         }
         catch (Exception ex)
         {
@@ -121,13 +122,9 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             var projectEntity = await _projectRepository.GetAsync(project => project.Id == id);
             if (projectEntity != null)
             {
-
+                //Returns the resulting project from sending the entity to the factory. 
                 var project = ProjectFactory.Create(projectEntity);
                 return Result<Project?>.Ok(project);
-
-                //Returns the resulting project from sending the entity to the factory. 
-                return ProjectFactory.Create(projectEntity);
-
             }
             return Result.NotFound("Project not found.");
         }
