@@ -14,6 +14,7 @@ namespace Business.Services
         {
             try
             {
+                //Gets the customerentities and uses select to send each of them to the factory and loads them into a list and then returns it as IEnum.
                 var entities = await _customerRepository.GetAllAsync();
                 var customers = entities.Select(CustomerFactory.Create);
                 return Result<IEnumerable<Customer?>>.Ok(customers);

@@ -15,13 +15,14 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
     {
         try
         {
+            //If entity is null throws exception.
             if (entity == null)
             {
                 throw new Exception();
             }
+            //Add entity to the database and then save the changes.
             await _db.AddAsync(entity);
             await _context.SaveChangesAsync();
-
             return true;
         }
         catch (Exception ex)
@@ -38,6 +39,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
             {
                 throw new Exception();
             }
+            //Updates the existing entity in the database and then save the changes.
             _db.Update(entity);
             await _context.SaveChangesAsync();
 
@@ -57,6 +59,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
             {
                 throw new Exception();
             }
+            //Removes the entity from the database and saves the changes.
             _db.Remove(entity);
             await _context.SaveChangesAsync();
 
@@ -72,11 +75,13 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
     {
         try
         {
+            //Gets all the entities from the database and returns them.
             var entities = await _db.ToListAsync();
             return entities;
         }
         catch (Exception ex)
         {
+            //Returns empty list incase of exception.
             Debug.WriteLine(ex);
             return new List<TEntity>();
         }
@@ -85,6 +90,7 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
     {
         try
         {
+            //Finds the first entity and returns it.
             var entity = await _db.FirstOrDefaultAsync(expression);
             return entity;
         }
@@ -97,7 +103,8 @@ public abstract class BaseRepository<TEntity>(DataContext context) : IBaseReposi
     public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> expression)
     {
         try
-        {
+        {   
+            //Checks if there is any kind of entity, returns either true or false.
             var result = await _db.AnyAsync(expression);
             return result;
         }

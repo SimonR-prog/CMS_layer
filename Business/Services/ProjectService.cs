@@ -9,10 +9,10 @@ namespace Business.Services;
 
 public class ProjectService(IProjectRepository projectRepository, ICustomerRepository customerRepository) : IProjectService
 {
+    //Initializes some private fields.
     private readonly IProjectRepository _projectRepository = projectRepository;
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
-    //Takes in a projectregistration form and returns a bool.
     public async Task<Result> CreateProjectAsync(ProjectRegistrationForm registrationForm)
     {
         try
@@ -23,7 +23,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             }
             //Sends form to the factory and adds the resulting entity into var.
             var projectEntity = ProjectFactory.Create(registrationForm);
-            //If entity null, return false.
+            //If entity null, return notFound.
             if (projectEntity == null)
             {
                 return Result.NotFound("Project entity is null.");
@@ -49,9 +49,9 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     {
         try
         {   
-            //Var entities fetches all the entities.
+            //Gets all the entities.
             var entities = await _projectRepository.GetAllAsync();
-            //Var projects turns all the entities into projects with the help of the factory and then returns them. Select sends one by one.
+            //Turns all the entities into projects with the help of the factory and then returns them as IEnum. Select sends one by one.
             var projects = entities.Select(ProjectFactory.Create);
             return Result<IEnumerable<Project?>>.Ok(projects);
         }
@@ -66,13 +66,15 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     public async Task<Result> UpdateProjectAsync(ProjectUpdateForm updateForm)
     {
         try
-        {
+        {   
+            //Sends updateForm to factory.
             var entity = ProjectFactory.Create(updateForm);
-            if ( entity == null)
+            if (entity == null)
             {
-                return Result.AlreadyExists("Customer already exists.");
+                return Result.NotFound("Project is null.");
             }
-            var updatedEntity = await _projectRepository.UpdateAsync(entity);
+            //Sends entity to the update in repository.
+            await _projectRepository.UpdateAsync(entity);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -88,7 +90,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             //If project doesn't exist, return false.
             if (!await _projectRepository.ExistsAsync(project => project.Id == id))
             {
-                return Result.AlreadyExists("Customer already exists.");
+                return Result.NotFound("Project doesn't exist.");
             }
             //Get the project.
             var project = await _projectRepository.GetAsync(project => project.Id == id);
@@ -97,7 +99,8 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             {
                 return Result.NotFound("Project entity is null.");
             }
-            bool result = await _projectRepository.RemoveAsync(project);
+            //Removes project and returns ok.
+            await _projectRepository.RemoveAsync(project);
             return Result.Ok();
         }
         catch (Exception ex)
@@ -110,11 +113,12 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     {
         try
         {
+            //If it doesn't exist return not found.
             if (!await _projectRepository.ExistsAsync(project => project.Id == id))
             {
-                return Result.NotFound("Customer doesn't exist.");
+                return Result.NotFound("Project doesn't exist.");
             }
-            //Gets the projectentity from its id and uses factory to turn it into a project and returns it.
+            //Gets the projectentity from its id.
             var projectEntity = await _projectRepository.GetAsync(project => project.Id == id);
             if (projectEntity == null)
             {

@@ -9,7 +9,7 @@ public static class CustomerFactory
     public static CustomerEntity? Create(CustomerRegistrationForm form) => form == null ? null : new()
     {
         CustomerName = form.CustomerName,
-        Email = form.Email,
+        Email = form.Email
     };
 
     //Takes in an entity, returns a customer object.

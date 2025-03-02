@@ -11,7 +11,6 @@ public class DataContext : DbContext
     public DataContext()
     {
     }
-
     public DbSet<CustomerEntity> Customers { get; set; }
     public DbSet<ProjectEntity> Projects { get; set; }
 }

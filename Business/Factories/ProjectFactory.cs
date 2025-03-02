@@ -5,6 +5,7 @@ namespace Business.Factories;
 
 public static class ProjectFactory
 {
+    // Factory with three different create methods which will run depending on which type of object gets sent to it.
     public static ProjectEntity? Create(ProjectRegistrationForm registrationForm) => new ProjectEntity
     {
         ProjectName = registrationForm.ProjectName,
