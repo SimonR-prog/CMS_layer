@@ -42,4 +42,18 @@ public class Result<T> : Result
             Content = content
         };
     }
+
+
+    //Chatgpt recommended to add this to fix some of the issues that I was having with the return in customer service.
+    //This allows me to still return an IEnum of a specific type, which we made into an empty list so that theres fewer issues with the service.
+    public static Result<T> Error(T? content, string message)
+    {
+        return new Result<T>
+        {
+            Success = false,
+            StatusCode = 500,
+            Content = content,
+            ErrorMessage = message
+        };
+    }
 }

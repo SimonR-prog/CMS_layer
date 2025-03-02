@@ -13,11 +13,10 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     private readonly ICustomerRepository _customerRepository = customerRepository;
 
     //Takes in a projectregistration form and returns a bool.
-    public async Task<IResult> CreateProjectAsync(ProjectRegistrationForm registrationForm)
+    public async Task<Result> CreateProjectAsync(ProjectRegistrationForm registrationForm)
     {
         try
         {   
-            //If customer doesn't exist, return null.
             if (!await _customerRepository.ExistsAsync(customer => customer.Id == registrationForm.CustomerId))
             {
                 return Result.AlreadyExists("Customer already exists.");
@@ -46,13 +45,13 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
     }
 
     //Doesn't take in any parameters, returns an IEnum list of project objects. 
-    public async Task<IResult> GetProjectsAsync()
+    public async Task<Result<IEnumerable<Project?>>> GetProjectsAsync()
     {
         try
         {   
             //Var entities fetches all the entities.
             var entities = await _projectRepository.GetAllAsync();
-            //Var projects turns all the entities into projects with the help of the factory and then returns them.
+            //Var projects turns all the entities into projects with the help of the factory and then returns them. Select sends one by one.
             var projects = entities.Select(ProjectFactory.Create);
             return Result<IEnumerable<Project?>>.Ok(projects);
         }
@@ -60,11 +59,11 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
         {
             Debug.WriteLine(ex);
             //Returns a new empty list if anything goes wrong in the try.
-            return Result<List<Project?>>.Error("Problem getting the projects. Might not be any.");
+            return Result<IEnumerable<Project?>>.Error(Enumerable.Empty<Project?>(), ex.Message);
         }
     }
     
-    public async Task<IResult> UpdateProjectAsync(ProjectUpdateForm updateForm)
+    public async Task<Result> UpdateProjectAsync(ProjectUpdateForm updateForm)
     {
         try
         {
@@ -82,7 +81,7 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             return Result.Error("Error when updating data in project.");
         }
     }
-    public async Task<IResult> RemoveProjectAsync(int id)
+    public async Task<Result> RemoveProjectAsync(int id)
     {
         try
         {
@@ -107,21 +106,23 @@ public class ProjectService(IProjectRepository projectRepository, ICustomerRepos
             return Result.Error("Error when trying to remove project.");
         }
     }
-    public async Task<IResult> GetProjectAsync(int id)
+    public async Task<Result> GetProjectAsync(int id)
     {
         try
         {
-            //Check if exists?
-
+            if (!await _projectRepository.ExistsAsync(project => project.Id == id))
+            {
+                return Result.NotFound("Customer doesn't exist.");
+            }
             //Gets the projectentity from its id and uses factory to turn it into a project and returns it.
             var projectEntity = await _projectRepository.GetAsync(project => project.Id == id);
-            if (projectEntity != null)
+            if (projectEntity == null)
             {
-                //Returns the resulting project from sending the entity to the factory. 
-                var project = ProjectFactory.Create(projectEntity);
-                return Result<Project?>.Ok(project);
+                return Result.Error("Project not found.");
             }
-            return Result.NotFound("Project not found.");
+            //Returns the resulting project from sending the entity to the factory.
+            var project = ProjectFactory.Create(projectEntity);
+            return Result<Project?>.Ok(project);
         }
         catch (Exception ex) 
         {

@@ -1,28 +1,29 @@
 using Business.Factories;
 using Business.Interfaces;
 using Business.Models;
-using ResponseModel.Interfaces;
 using ResponseModel.Models;
+using System.Diagnostics;
 
 namespace Business.Services
 {
-    public class CustomerService : ICustomerService
+    public class CustomerService(ICustomerRepository customerRepository) : ICustomerService
     {
-        private readonly ICustomerRepository _customerRepository;
+        private readonly ICustomerRepository _customerRepository = customerRepository;
 
-        // Correct constructor syntax
-        public CustomerService(ICustomerRepository customerRepository)
+        public async Task<Result<IEnumerable<Customer?>>> GetCustomersAsync()
         {
-            _customerRepository = customerRepository;
-        }
-
-        // Doesn't take in any parameters, returns an IEnumerable list of customer objects.
-        public async Task<IResult> GetCustomersAsync()
-        {
-            // Get all the customer entities and then send them to the customer factory to turn them into customer objects.
-            var entities = await _customerRepository.GetAllAsync();
-            var customers = entities.Select(CustomerFactory.Create);  // Select should work here
-            return Result<IEnumerable<Customer?>>.Ok(customers);
+            try
+            {
+                var entities = await _customerRepository.GetAllAsync();
+                var customers = entities.Select(CustomerFactory.Create);
+                return Result<IEnumerable<Customer?>>.Ok(customers);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                //Got help from chatgpt for this line. It wanted me to return null first, but I asked to change it to an empty list instead.
+                return Result<IEnumerable<Customer?>>.Error(Enumerable.Empty<Customer?>(), ex.Message);
+            }
         }
     }
 }

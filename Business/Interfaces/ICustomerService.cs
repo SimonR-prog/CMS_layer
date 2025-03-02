@@ -1,8 +1,9 @@
-﻿using ResponseModel.Interfaces;
+﻿using Business.Models;
+using ResponseModel.Models;
 namespace Business.Interfaces
 {
     public interface ICustomerService
     {
-        Task<IResult> GetCustomersAsync();
+        Task<Result<IEnumerable<Customer?>>> GetCustomersAsync();
     }
 }
