@@ -1,7 +1,7 @@
 # Projects;
 
 ### Data - Class Library
-#### Folders;
+#### Folders:
 - Contexts
 - Entities
 - Interfaces
@@ -9,24 +9,24 @@
 - Repositories
 
 ### Business - Class Library
-#### Folders;
+#### Folders:
 - Factories
 - Interfaces
 - Models
 - Services
 
 ### Domain - Class Library
-#### Folders;
+#### Folders:
 - Models (For response/result class)
 - Interfaces
 
 
 ### Presentation - C# Web API
-#### Folders; (Both already exists on creation.)
+#### Folders: (Both already exists on creation.)
 - Controllers
 - Properties
 
-### Installs in npm package manager;
+### Installs in npm package manager:
 
 Install-Package Microsoft.EntityFrameworkCore.Tools
 
@@ -46,12 +46,12 @@ Install-Package Microsoft.EntityFrameworkCore.Design
 
 
 
-# For testing;
+# For testing:
 
 Create seperate Xunit projects for repositories and services.
 
 
-### Structure;
+### Structure:
 
 //Arrange
 
@@ -60,7 +60,7 @@ Create seperate Xunit projects for repositories and services.
 //Assert
 
 
-### Install in testing projects;
+### Install in testing projects:
 
 Install-Package Microsoft.EntityFrameworkCore.InMemory
 
@@ -94,7 +94,7 @@ Install-Package Microsoft.EntityFrameworkCore.InMemory
 
 
 
-
+# Parts:
 
 ### Backend:
 
@@ -104,7 +104,8 @@ https://github.com/SimonR-prog/CMS_layer
 
 https://github.com/SimonR-prog/Project_Databas
 
-### Sources for things:
+### Sources:
 
 Learning about database handling: 
+
 https://www.youtube.com/watch?v=l4XUngl4pmo&list=PLXkHB_gtvM_VXeWG63TVagE6cBJrx_WV4
