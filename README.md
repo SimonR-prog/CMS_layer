@@ -29,7 +29,9 @@ Folders;
 ### Installs in npm package manager;
 
 Install-Package Microsoft.EntityFrameworkCore.Tools
+
 Install-Package Microsoft.EntityFrameworkCore.SqlServer
+
 Install-Package Microsoft.EntityFrameworkCore.Design
 
 Add design in both data and presentation layer.
