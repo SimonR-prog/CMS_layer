@@ -34,7 +34,7 @@ Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 Install-Package Microsoft.EntityFrameworkCore.Design
 
-Add design in both data and presentation layer.
+#### Add design in both data and presentation layer.
 
 
 
@@ -50,23 +50,20 @@ Add design in both data and presentation layer.
 
 Create seperate Xunit projects for repositories and services.
 
+
 ### Structure;
+
 //Arrange
 
 //Act
 
 //Assert
 
+
 ### Install in testing projects;
 
 Install-Package Microsoft.EntityFrameworkCore.InMemory
 
-### Installs in npm package manager;
-
-Install-Package Microsoft.Data.SqlClient
-Install-Package Microsoft.EntityFrameworkCore.Tools
-Install-Package Microsoft.EntityFrameworkCore.Design
-Install-Package Microsoft.EntityFrameworkCore.SqlServer
 
 
 
