@@ -36,14 +36,25 @@ Install-Package Microsoft.EntityFrameworkCore.Design
 
 #### Add design in both data and presentation layer.
 
+# Versionhandling of database:
 
+### Steps: 
 
+Write in console: (While in the Data-layer)
 
+- Add-Migration "Init"
 
+To migrate the changes. (Write a commit message in the "")
 
+Check so that the migration is correct. (Migration folder should have been created and a new window opened)
 
+Use:
 
+- Remove-Migration
 
+If anything is incorrect. Otherwise:
+
+- Update-Database
 
 
 # For testing:
