@@ -1,4 +1,10 @@
-# Projects;
+# Order of things for the database class:
+## Create the projects in the solution and add folders:
+
+### Presentation - C# Web API
+#### Folders: (Both already exists on creation.)
+- Controllers
+- Properties
 
 ### Data - Class Library
 #### Folders:
@@ -7,6 +13,7 @@
 - Interfaces
 - Migrations (Will be automatically added when migrating.)
 - Repositories
+- DataBase
 
 ### Business - Class Library
 #### Folders:
@@ -20,11 +27,50 @@
 - Models (For response/result class)
 - Interfaces
 
+## Dependencies:
+- WebAPI => Business
+- Business => Data
+- Data => Domain
+- Business => Domain
 
-### Presentation - C# Web API
-#### Folders: (Both already exists on creation.)
-- Controllers
-- Properties
+## Create Entities in the data layer.
+## Create DataContext.
+## Register entities in the context.
+## Create Database in the databse folder.
+## Connect the database to the webapi in the api.json file by adding the connectionstring.
+## Migrate.
+## Doublecheck the migration. Make sure things cascade correctly.
+## Update the database.
+## Create Result/response class.
+## Create a base repository in the data layer.
+## Create a interfaces of the base repository.
+## Create repositories for all entities.
+## Create specific overrides.
+## Create interfaces for all repositories.
+## Register all the respositories in the program file.
+## Create models for all entities that are needed.
+## Create forms for the things needed.
+## Create factories.
+- Entity => Model
+- Form => Entity
+## Create Services.
+## Create interfaces on all services.
+## Register all services in the program file.
+## Create APIs.
+
+## Create tests. (Install inmemory database)
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Installs in npm package manager:
 
