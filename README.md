@@ -1,30 +1,30 @@
 # Projects;
 
 ### Data - Class Library
-- Folders; 
-	Contexts
-	Entities
-	Interfaces
-	Migrations (Will be automatically added when migrating.)
-	Repositories
+## Folders;
+- Contexts
+- Entities
+- Interfaces
+- Migrations (Will be automatically added when migrating.)
+- Repositories
 
 ### Business - Class Library
-- Folders;
-	Factories
-	Interfaces
-	Models
-	Services
+## Folders;
+- Factories
+- Interfaces
+- Models
+- Services
 
 ### Domain - Class Library
-Folders; 
-	Models (For response/result class)
-	Interfaces
+## Folders;
+- Models (For response/result class)
+- Interfaces
 
 
 ### Presentation - C# Web API
-- Folders; (Both already exists on creation.)
-	Controllers
-	Properties
+## Folders; (Both already exists on creation.)
+- Controllers
+- Properties
 
 ### Installs in npm package manager;
 
