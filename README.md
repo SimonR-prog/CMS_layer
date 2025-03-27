@@ -1,4 +1,4 @@
-# Order of things for the database class:
+# Order of things for the database course:
 ## Create the projects in the solution and add folders:
 
 ### Presentation - C# Web API
