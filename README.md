@@ -1,3 +1,7 @@
+# Future:
+
+It technically works. But it obviously needs more work done. The reponse-class needs to be fixed for the testing and the frontend for it(linked in the bottom of the readme) looks like shit and doesn't have anything for adding a customer right now which needs to be added.
+
 # Order of things for the database course:
 ## Create the projects in the solution and add folders:
 
